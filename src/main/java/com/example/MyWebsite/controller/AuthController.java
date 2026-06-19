@@ -2,24 +2,14 @@ package com.example.MyWebsite.controller;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AuthController {
 
-    @GetMapping("/")
+   @GetMapping("/")
     public String home() {
-        return "index";   // index.html open hoga
+        return "redirect:/user.html";
     }
 
-    @PostMapping("/add")
-    public String add(@RequestParam int num1,
-                      @RequestParam int num2,
-                      Model model) {
-
-        int result = num1 + num2;
-        model.addAttribute("result", result);
-        return "index";
-    }
 }
