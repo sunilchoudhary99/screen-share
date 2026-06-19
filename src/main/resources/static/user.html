@@ -19,14 +19,14 @@
     const stopBtn = document.getElementById('stopBtn');
     const status = document.getElementById('status');
 
-<!--    localStream = await navigator.mediaDevices.getDisplayMedia({-->
-<!--    video: {-->
-<!--        width: { ideal: 1280 },-->
-<!--        height: { ideal: 720 },-->
-<!--        frameRate: { ideal: 15 } // Mobile battery aur data bachane ke liye 15-20 fps kaafi hai-->
-<!--    },-->
-<!--    audio: false-->
-<!--});-->
+    localStream = await navigator.mediaDevices.getDisplayMedia({
+    video: {
+       width: { ideal: 1280 },
+       height: { ideal: 720 },
+      frameRate: { ideal: 15 } // Mobile battery aur data bachane ke liye 15-20 fps kaafi hai-->
+   },
+   audio: false
+});
 
     startBtn.onclick = async () => {
         try {
