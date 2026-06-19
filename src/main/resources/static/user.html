@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User - Share Screen</title>
 </head>
 <body>
-<button id="startBtn">Open</button>
+
+
+<button id="startBtn">Open (Start Share)</button>
+<button id="adminBtn">Go to Admin</button>
 <button id="stopBtn" disabled>Stop Sharing</button>
 <p id="status" style="color: red; font-weight: bold;"></p>
 
 <script>
-    // Standard Browser WebSocket API
-    const socket = new WebSocket('ws://localhost:8080/signaling');
+    // Dynamic WebSocket taaki local/live dono jagah chale
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+    const socket = new WebSocket(wsProtocol + window.location.host + '/signaling');
+
     let peerConnection;
     let localStream;
 
     const configuration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+
+    // Elements mapping fixed
     const startBtn = document.getElementById('startBtn');
+    const adminBtn = document.getElementById('adminBtn');
     const stopBtn = document.getElementById('stopBtn');
     const status = document.getElementById('status');
 
-    localStream = await navigator.mediaDevices.getDisplayMedia({
-    video: {
-       width: { ideal: 1280 },
-       height: { ideal: 720 },
-      frameRate: { ideal: 15 } // Mobile battery aur data bachane ke liye 15-20 fps kaafi hai-->
-   },
-   audio: false
-});
-
+    // "Open" (Start Share) Button Click Logic
     startBtn.onclick = async () => {
         try {
-            localStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+            // Screen capture constraints ke saath optimized (Yahan function ke andar await ekdum sahi hai)
+            localStream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    frameRate: { ideal: 15 }
+                },
+                audio: false
+            });
+
             status.innerText = "🔴 Screen Sharing Active";
             startBtn.disabled = true;
             stopBtn.disabled = false;
-             window.location.href = 'form.html';
+
             localStream.getVideoTracks()[0].onended = () => stopSharing();
 
+            // WebRTC Connection Setup
             peerConnection = new RTCPeerConnection(configuration);
             localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
 
@@ -48,16 +60,18 @@
 
             const offer = await peerConnection.createOffer();
             await peerConnection.setLocalDescription(offer);
+
+            // Connection banne ke baad data send karna
             socket.send(JSON.stringify({ type: 'offer', offer: offer }));
 
         } catch (err) {
-            console.error("Error: ", err);
+            console.error("Error starting screen share: ", err);
+            status.innerText = "❌ Permission Denied / Error";
         }
     };
 
     socket.onmessage = async (event) => {
         const data = JSON.parse(event.data);
-
         if (data.type === 'answer') {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
         } else if (data.type === 'ice-candidate' && peerConnection) {
@@ -73,6 +87,11 @@
         stopBtn.disabled = true;
     }
     stopBtn.onclick = stopSharing;
+
+    // Admin Page redirect button logic (Fixed ID mapping)
+    adminBtn.onclick = () => {
+        window.location.href = 'admin.html';
+    };
 </script>
 </body>
 </html>
