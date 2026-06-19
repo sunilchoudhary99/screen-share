@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mobile Registration</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:linear-gradient(135deg,#4F46E5,#7C3AED);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:15px;
+        }
+
+        .container{
+            width:100%;
+            max-width:380px;
+            background:#fff;
+            border-radius:25px;
+            padding:30px 20px;
+            box-shadow:0 15px 40px rgba(0,0,0,.2);
+        }
+
+        .logo{
+            width:70px;
+            height:70px;
+            background:#4F46E5;
+            color:white;
+            border-radius:50%;
+            margin:auto;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:28px;
+        }
+
+        h2{
+            text-align:center;
+            margin-top:15px;
+            color:#222;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#777;
+            margin-top:5px;
+            margin-bottom:25px;
+            font-size:14px;
+        }
+
+        .input-box{
+            position:relative;
+            margin-bottom:15px;
+        }
+
+        .input-box i{
+            position:absolute;
+            left:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#666;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:14px 14px 14px 45px;
+            border:none;
+            outline:none;
+            background:#f3f4f6;
+            border-radius:12px;
+            font-size:15px;
+        }
+
+        .input-box input:focus{
+            border:2px solid #4F46E5;
+            background:#fff;
+        }
+
+        .btn{
+            width:100%;
+            border:none;
+            padding:14px;
+            border-radius:12px;
+            background:#4F46E5;
+            color:white;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        .btn:hover{
+            opacity:.9;
+        }
+
+        .footer{
+            text-align:center;
+            margin-top:18px;
+            font-size:14px;
+            color:#666;
+        }
+
+        .footer a{
+            color:#4F46E5;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        @media (min-width:768px){
+            body{
+                display:none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+
+
+    <form>
+
+        <div class="input-box">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Full Name">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" placeholder="Email Address">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-phone"></i>
+            <input type="tel" placeholder="Mobile Number">
+        </div>
+
+        <div class="input-box">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" placeholder="Password">
+        </div>
+
+        <button class="btn">
+            Sumbit
+        </button>
+
+    </form>
+
+
+
+</div>
+
+</body>
+</html>
+```
